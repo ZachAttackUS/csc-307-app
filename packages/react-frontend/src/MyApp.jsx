@@ -40,13 +40,24 @@ function MyApp() {
     }
   }
   
-  function updateList(person) { 
+  // function updateList(person) { 
+  //   postUser(person)
+  //     .then(() => setCharacters([...characters, response body json]))
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  // }
+  function updateList(person){
     postUser(person)
-      .then(() => setCharacters([...characters, person]))
-      .catch((error) => {
-        console.log(error);
-      })
+    .then((res) => res.status === 201 ? res.json() : undefined)
+    .then((json) => {setCharacters([...characters, json])})
+    .catch((error) => {
+      console.log(error);
+    })
   }
+    
+  
+    
 
   return (
     <div className="container">
