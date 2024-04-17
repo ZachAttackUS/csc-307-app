@@ -88,11 +88,14 @@ const addUser = (user) => {
     return user;
   };
   
-  app.post("/users", (req, res) => {
-    const userToAdd = req.body;
-    addUser(userToAdd);
-    res.send();
-  });
+const generateId = () => Math.random().toFixed(8)
+
+app.post("/users", (req, res) => {
+  const userToAdd = req.body;
+  users.id = generateId;
+  addUser(userToAdd);
+  res.status(201).send(userToAdd);
+});
 
   const deleteUserById = (id) => {
     const index = users["users_list"].findIndex(user => user.id === id);
