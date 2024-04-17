@@ -14,11 +14,30 @@ function MyApp() {
 
   const [characters, setCharacters] = useState([]);
 
+  // function removeOneCharacter(index) {
+
+  //   const updated = characters.filter((character, i) => {
+  //     return i !== index;
+  //   });
+  //   setCharacters(updated);
+  // }
+
   function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
-    });
-    setCharacters(updated);
+    const character = characters[index];
+  
+    if (character && character.id) {
+      const url = `http://localhost:8000/users/${character.id}`;
+      fetch(url, { method: 'DELETE' })
+        .then((response) => {
+          if (response.status == 204) {
+            const updated = characters.filter((character, i) => i !== index);
+            setCharacters(updated); 
+          } else if (response.status == 404) {
+            console.error('Failed to delete the character with response:', response);
+          }
+        })
+        .catch((error) => console.error('Failed to delete the character:', error));
+    }
   }
   
   function updateList(person) { 

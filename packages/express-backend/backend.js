@@ -92,7 +92,7 @@ const generateId = () => Math.random().toFixed(8)
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
-  users.id = generateId;
+  userToAdd.id = generateId()
   addUser(userToAdd);
   res.status(201).send(userToAdd);
 });
@@ -110,7 +110,7 @@ app.post("/users", (req, res) => {
     const id = req.params.id;
     const deleted = deleteUserById(id);
     if (deleted) {
-      res.status(200).send("User deleted successfully.");
+      res.status(204).send("User deleted successfully.");
     } else {
       res.status(404).send("User not found.");
     }
