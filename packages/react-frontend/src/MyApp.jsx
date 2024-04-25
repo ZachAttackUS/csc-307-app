@@ -25,8 +25,8 @@ function MyApp() {
   function removeOneCharacter(index) {
     const character = characters[index];
   
-    if (character && character.id) {
-      const url = `http://localhost:8000/users/${character.id}`;
+    if (character && character._id) {
+      const url = `http://localhost:8000/users/${character._id}`;
       fetch(url, { method: 'DELETE' })
         .then((response) => {
           if (response.status == 204) {
